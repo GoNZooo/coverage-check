@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "coverage-check:lib"
+
+    - path: "./app/Main.hs"
+      component: "coverage-check:exe:coverage-check"
+
+    - path: "./app/Paths_coverage_check.hs"
+      component: "coverage-check:exe:coverage-check"
+
+    - path: "./test"
+      component: "coverage-check:test:coverage-check-test"
