@@ -15,4 +15,12 @@ data UnableToGetHpcDirectory = UnableToGetHpcDirectory
 
 instance Exception UnableToGetHpcDirectory
 
+newtype PackageName = PackageName {unPackageName :: Text}
+  deriving (Show, Eq, Ord, IsString)
+
+newtype HpcFile = HpcFile {unHpcFile :: FilePath}
+  deriving (Show, Eq, Ord, IsString)
+
 foldMapM makeLenses [''UnableToGetHpcDirectory]
+
+foldMapM makeWrapped [''PackageName, ''HpcFile]
