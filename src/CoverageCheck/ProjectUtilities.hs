@@ -13,7 +13,7 @@ import System.Process.Typed (byteStringOutput, proc, readProcess, setStdout, set
 getHpcRoot :: (MonadIO m, MonadThrow m) => FilePath -> m FilePath
 getHpcRoot workingDirectory = do
   let stackPathProcess =
-        ["path", "--local-install-root"]
+        ["path", "--local-hpc-root"]
           & proc "stack"
           & setWorkingDir workingDirectory
           & setStdout byteStringOutput
