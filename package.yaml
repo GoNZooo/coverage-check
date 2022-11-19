@@ -25,6 +25,7 @@ dependencies:
 - rio
 - scalpel
 - typed-process
+- conduit
 
 default-extensions:
 - ApplicativeDo

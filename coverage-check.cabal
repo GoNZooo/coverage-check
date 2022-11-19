@@ -81,6 +81,7 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -Wwarn=deprecations -Werror=incomplete-patterns
   build-depends:
       base >=4.11 && <10
+    , conduit
     , qtility
     , rio
     , scalpel
@@ -141,6 +142,7 @@ executable coverage-check
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -Wwarn=deprecations -Werror=incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.11 && <10
+    , conduit
     , coverage-check
     , optparse-simple
     , qtility
@@ -205,6 +207,7 @@ test-suite coverage-check-test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -Wwarn=deprecations -Werror=incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.11 && <10
+    , conduit
     , coverage-check
     , hspec
     , qtility
