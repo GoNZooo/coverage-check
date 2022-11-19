@@ -1,5 +1,5 @@
 name:                coverage-check
-version:             0.1.0.0
+version:             0.0.1
 github:              GoNZooo/coverage-check
 license:             BSD3
 author:              Rickard Andersson
@@ -23,6 +23,8 @@ dependencies:
 - base >= 4.11 && < 10
 - qtility
 - rio
+- scalpel
+- typed-process
 
 default-extensions:
 - ApplicativeDo
