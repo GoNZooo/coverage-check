@@ -24,6 +24,13 @@ newtype TestSuiteName = TestSuiteName {unTestSuiteName :: Text}
 newtype HpcFile = HpcFile {unHpcFile :: FilePath}
   deriving (Show, Eq, Ord, IsString)
 
-foldMapM makeLenses [''UnableToGetHpcDirectory]
+data HpcInfo = HpcInfo
+  { _hiPackageName :: PackageName,
+    _hiTestSuite :: TestSuiteName,
+    _hiHpcFile :: HpcFile
+  }
+  deriving (Eq, Show, Generic)
+
+foldMapM makeLenses [''UnableToGetHpcDirectory, ''HpcInfo]
 
 foldMapM makeWrapped [''PackageName, ''TestSuiteName, ''HpcFile]
