@@ -18,12 +18,7 @@ import Conduit
     (.|),
   )
 import CoverageCheck.ProjectUtilities.Types
-  ( HpcFile (..),
-    HpcInfo (..),
-    PackageName (..),
-    TestSuiteName (..),
-    UnableToGetHpcDirectory (..),
-  )
+import CoverageCheck.Types (HpcFile (..), HpcInfo (..), PackageName (..), TestSuiteName (..))
 import Data.Conduit.Combinators (sinkList, sourceDirectoryDeep)
 import Qtility
 import RIO.Directory (doesDirectoryExist, listDirectory)

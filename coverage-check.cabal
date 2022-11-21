@@ -25,10 +25,12 @@ source-repository head
 
 library
   exposed-modules:
+      CoverageCheck.Hpc
+      CoverageCheck.Hpc.Html
       CoverageCheck.ProjectUtilities
       CoverageCheck.ProjectUtilities.Types
+      CoverageCheck.Types
       Run
-      Types
   other-modules:
       Paths_coverage_check
   hs-source-dirs:
