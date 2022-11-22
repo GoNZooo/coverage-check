@@ -1,0 +1,48 @@
+name: Upload release
+
+on:
+  create:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v3
+        name: Cache ~/.stack
+        with:
+          path: ~/.stack
+          key: ${{ runner.os }}-stack-global-${{ hashFiles('stack.yaml') }}-${{ hashFiles('package.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-stack-global-
+      - uses: actions/cache@v3
+        name: Cache .stack-work
+        with:
+          path: .stack-work
+          key: ${{ runner.os }}-stack-work-${{ hashFiles('stack.yaml') }}-${{ hashFiles('package.yaml') }}-${{ hashFiles('services/*/**/*.hs') }}
+          restore-keys: |
+            ${{ runner.os }}-stack-work-
+
+      - name: Test
+        run: stack build --test
+
+      - name: Copy binary
+        run: |
+          ABSOLUTE_BINARY_PATH=`stack path --local-install-root`
+          TARBALL_NAME="coverage-check-${{ runner.os }}-${{ github.sha }}.tar.gz"
+          mv $ABSOLUTE_BINARY_PATH/bin/coverage-check ./coverage-check
+          tar czf coverage-check-${{ runner.os }}-${{ github.sha }}.tar.gz coverage-check
+          echo "Created tarball '$TARBALL_NAME' for ref '${{ github.ref }}'"
+
+      - name: Rename tarball
+        run: |
+          mv coverage-check-${{ runner.os }}-${{ github.sha }}.tar.gz coverage-check-${{ runner.os }}-$GITHUB_REF_NAME.tar.gz
+      
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          files: coverage-check-*.tar.gz
+  
