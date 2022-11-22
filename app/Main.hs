@@ -28,6 +28,15 @@ main = do
                 <> help "Environment file to load during startup"
                 <> value ".env"
             )
+          <*> optional
+            ( strOption
+                ( long "config"
+                    <> short 'c'
+                    <> metavar "CONFIG_FILE"
+                    <> help "Config file to load during startup"
+                )
+            )
+          <*> strArgument (metavar "PROJECT_PATH" <> help "The path to the project to check")
       )
       empty
   run options

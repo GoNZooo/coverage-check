@@ -73,16 +73,14 @@ moduleS = do
         >>> ModuleName
       )
       <$> attr "href" "a"
-  (topLevel, alternatives, expressions) <- coverageInfoS
+  coverageInfo <- coverageInfoS
   pure
     ModuleHpcInfo
       { _mhiName = moduleName,
-        _mhiTopLevelDefinitions = topLevel,
-        _mhiAlternatives = alternatives,
-        _mhiExpressions = expressions
+        _mhiCoverageInfo = coverageInfo
       }
 
-coverageInfoS :: Scraper Text (CoverageInfo, CoverageInfo, CoverageInfo)
+coverageInfoS :: Scraper Text CoverageInfoTriple
 coverageInfoS = inSerial $ do
   _moduleName <- seekNext $ text "td"
   topLevelPercentage <- seekNext percentageS
@@ -92,22 +90,26 @@ coverageInfoS = inSerial $ do
   expressionsPercentage <- seekNext percentageS
   (expressionsCovered, expressionsTotal) <- seekNext coverageS
   pure
-    ( CoverageInfo
-        { _ciPercentage = topLevelPercentage,
-          _ciCovered = topLevelCovered,
-          _ciTotal = topLevelTotal
-        },
-      CoverageInfo
-        { _ciPercentage = alternativesPercentage,
-          _ciCovered = alternativesCovered,
-          _ciTotal = alternativesTotal
-        },
-      CoverageInfo
-        { _ciPercentage = expressionsPercentage,
-          _ciCovered = expressionsCovered,
-          _ciTotal = expressionsTotal
-        }
-    )
+    CoverageInfoTriple
+      { _citTopLevelDefinitions =
+          CoverageInfo
+            { _ciPercentage = topLevelPercentage,
+              _ciCovered = topLevelCovered,
+              _ciTotal = topLevelTotal
+            },
+        _citAlternatives =
+          CoverageInfo
+            { _ciPercentage = alternativesPercentage,
+              _ciCovered = alternativesCovered,
+              _ciTotal = alternativesTotal
+            },
+        _citExpressions =
+          CoverageInfo
+            { _ciPercentage = expressionsPercentage,
+              _ciCovered = expressionsCovered,
+              _ciTotal = expressionsTotal
+            }
+      }
 
 percentageS :: Scraper Text Float
 percentageS = do

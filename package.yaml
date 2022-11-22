@@ -26,6 +26,8 @@ dependencies:
 - scalpel
 - typed-process
 - conduit
+- aeson
+- yaml
 
 default-extensions:
 - ApplicativeDo

@@ -1,0 +1,7 @@
+requirements:
+  qtility-db-test:
+    alternatives: 57
+ignore:
+  - Qtility.Database.Testing.Types
+  - Qtility.Database.Types
+    
