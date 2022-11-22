@@ -1,9 +1,7 @@
 module ExampleSpec (spec) where
 
 import Qtility
-import Types
 import Test.Hspec
-import Test.Hspec.QuickCheck
 
 spec :: Spec
 spec = do
