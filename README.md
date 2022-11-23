@@ -1,30 +1,24 @@
 # coverage-check
 
-## Execute  
-
-* Run `stack exec -- coverage-check` to see "We're inside the application!"
-* With `stack exec -- coverage-check --verbose` you will see the same message, with more logging.
-
-## Install
-
-Run `stack install` followed by `coverage-check --help` in order to see which command line options are
-available.
-
-## Run tests
-
-`stack test`
-
-## Development
-
-You can run a local hoogle instance by issuing the following commands to make
-the hoogle script executable and starting the hoogle server:
+A simple CLI tool for extracting and checking coverage information from a
+coverage report generated via `stack test --coverage`.
 
 ```bash
-$ chmod +x dev-scripts/run-hoogle.sh
-$ ./dev-scripts/run-hoogle.sh
+$ coverage-check --help
+Header for command line arguments
+
+Usage: coverage-check [--version] [--help] [-v|--verbose]
+                      [-e|--environment-file DOTENV_FILE]
+                      [-c|--config CONFIG_FILE] PROJECT_PATH
+  Program description, also for command line arguments
+
+Available options:
+  --version                Show version
+  --help                   Show this help text
+  -v,--verbose             Verbose output?
+  -e,--environment-file DOTENV_FILE
+                           Environment file to load during startup
+  -c,--config CONFIG_FILE  Config file to load during startup
+  PROJECT_PATH             The path to the project to check
 ```
 
-The repository comes with a `.vscode/settings.json` file that sets the hoogle
-vscode extension to point to the local hoogle instance, which means you can get
-instant results right in your editor by bringing up the command palette and
-executing "Hoogle Search" (or by pressing Shift+Alt+H by default).
