@@ -48,18 +48,17 @@ streamHpcInfo workingDirectory = do
         .| createHpcInfo
     createHpcInfo = do
       maybePath <- await
-      case maybePath of
-        Nothing -> pure ()
-        Just p -> do
-          case p & Text.pack & PartialText.splitOn "/" & reverse of
-            _hpcFileName : testSuiteName : packageName : _ ->
-              yield
-                HpcInfo
-                  { _hiPackageName = PackageName packageName,
-                    _hiTestSuite = TestSuiteName testSuiteName,
-                    _hiHpcFile = HpcFile p
-                  }
-            _other -> createHpcInfo
+      forM_ maybePath $ \p -> do
+        case p & Text.pack & PartialText.splitOn "/" & reverse of
+          _hpcFileName : testSuiteName : packageName : _ -> do
+            yield
+              HpcInfo
+                { _hiPackageName = PackageName packageName,
+                  _hiTestSuite = TestSuiteName testSuiteName,
+                  _hiHpcFile = HpcFile p
+                }
+          _other -> mempty
+        createHpcInfo
 
 -- | Finds test suites and their associated HPC report files in a given working directory. These
 -- are stored under the package names that they belong to.
